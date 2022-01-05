@@ -17,6 +17,7 @@ class MotionController extends Controller
     public function list()
     {
         $motion = Motion::all();
+        
         return  view('manageMotion',['motion' => $motion]);
         
     }
