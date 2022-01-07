@@ -35,6 +35,13 @@
 
                 @if(Auth::user()->hasRole('moderator'))
 
+                <!-- Motions -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.moderatorMotionList')" :active="request()->routeIs('dashboard.moderatorMotionList')">
+                        {{ __('Your Motions') }}
+                    </x-nav-link>
+                </div>
+
                 <!-- moderator profile -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard.moderatorProfile')" :active="request()->routeIs('dashboard.moderatorProfile')">
@@ -66,6 +73,13 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard.motionList')" :active="request()->routeIs('dashboard.motionList')">
                         {{ __('Motions') }}
+                    </x-nav-link>
+                </div>
+
+                <!-- User Profiles -->
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('dashboard.userProfileList')" :active="request()->routeIs('dashboard.userProfileList')">
+                        {{ __('Users') }}
                     </x-nav-link>
                 </div>
 

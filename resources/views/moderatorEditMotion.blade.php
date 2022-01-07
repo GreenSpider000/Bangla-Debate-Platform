@@ -14,7 +14,7 @@
                     <!-- edit motion form -->
 
                     @foreach($motion as $motion)
-                    <form id="motionForm" method="POST" action="{{ url('dashboard/manageMotion/Motion/'.$motion->motionID) }}">
+                    <form method="POST" action="{{ url('dashboard/moderatorManageMotion/Motion/'.$motion->motionID) }}">
                         @csrf
 
 
@@ -40,7 +40,7 @@
                             <!-- update motion description -->
                             <div class="col" >
                                 <x-label for="motionDescription" :value="__('Motion Description:')" />
-                                <textarea form="motionForm" style="margin-bottom:80px;" id="motionDescription" name="motionDescription" rows="4" cols="50" class="form-control @error('motionDescription') is-invalid @enderror">
+                                <textarea style="margin-bottom:80px;" id="motionDescription" name="motionDescription" rows="4" cols="50" class="form-control @error('motionDescription') is-invalid @enderror">
 
                                 {{$motion->motionDescription}}
 

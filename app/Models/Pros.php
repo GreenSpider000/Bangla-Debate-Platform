@@ -15,9 +15,9 @@ class Pros extends Model
         'prosTitle',
         'prosDescription',
         'prosNumber',
+        'motionID',
     ];
     protected $guarded = [
-        'motionID',
         'prosID',
     ];
 }

@@ -2,43 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AssignedModerator;
 use App\Models\Cons;
-use App\Models\Genre;
 use App\Models\Motion;
-use App\Models\MotionGenre;
 use App\Models\Pros;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class MotionController extends Controller
+class ModeratorMotionController extends Controller
 {
-
-    public function showMotion($motionID)
-    {
-        $motion = Motion::where('motionID', $motionID)->get();
-        $pros = Pros::where('motionID', $motionID)->get();
-        $cons = Cons::where('motionID', $motionID)->get();
-
-
-        return view('showMotion', ['motion' => $motion, 'pros' => $pros, 'cons' => $cons]);
-    }
-
     public function list()
     {
-        $motion = Motion::all();
+        $motion = Motion::where('userName',Auth::user()->userName)->get();
 
-        return  view('manageMotion', ['motion' => $motion]);
+        return  view('moderatorManageMotion', ['motion' => $motion]);
     }
-
 
     public function create()
     {
-        return view('createMotion');
+        return view('moderatorCreateMotion');
     }
-
 
     public function store()
     {
@@ -52,7 +35,7 @@ class MotionController extends Controller
             'consNumber' => ['required', 'integer', 'max:100'],
             'consDescription' => ['required', 'string'],
         ]);
-
+        
         Motion::create([
             'motionName' => $data['motionName'],
             'motionDescription' => $data['motionDescription'],
@@ -67,15 +50,15 @@ class MotionController extends Controller
             'prosDescription' => $data['prosDescription'],
             'prosNumber' => $data['prosNumber'],
         ]);
-        
+
         Cons::create([
             'motionID' => $motionID,
             'consTitle' => $data['consTitle'],
             'consDescription' => $data['consDescription'],
             'consNumber' => $data['consNumber'],
         ]);
-        
-        return redirect()->intended(route('dashboard.motionList'));
+
+        return redirect()->intended(route('dashboard.moderatorMotionList'));
     }
 
     public function edit($motionID)
@@ -85,14 +68,14 @@ class MotionController extends Controller
         $pros = Pros::where('motionID', $motionID)->orderByDesc('prosNumber')->get();
         $cons = Cons::where('motionID', $motionID)->orderByDesc('consNumber')->get();
 
-        return view('editMotion', ['motion' => $motion, 'pros' => $pros, 'cons' => $cons]);
+        return view('moderatorEditMotion', ['motion' => $motion, 'pros' => $pros, 'cons' => $cons]);
     }
-
 
     public function update($motion)
     {
 
         // check if provided motionID exists
+        // and it's ur motion
         if (DB::table('motions')
             ->where('motionID', $motion)->exists()
         ) {
@@ -136,29 +119,27 @@ class MotionController extends Controller
                     );
             }
 
-            return redirect()->intended(route('dashboard.motionList'));
+            return redirect()->intended(route('dashboard.moderatorMotionList'));
         } else {
             //if given motionID doesn't exists in DB
             //will add success message later
-            return redirect()->intended(route('dashboard.motionList'));
+            return redirect()->intended(route('dashboard.moderatorMotionList'));
         }
     }
 
     public function destroy($motionID)
     {
-
-
         if (DB::table('motions')
             ->where('motionID', $motionID)->exists()
         ) {
 
             DB::table('motions')->where('motionID', $motionID)->delete();
 
-            return redirect()->intended(route('dashboard.motionList'));
+            return redirect()->intended(route('dashboard.moderatorMotionList'));
         } else {
 
             //will add success message later
-            return redirect()->intended(route('dashboard.motionList'));
+            return redirect()->intended(route('dashboard.moderatorMotionList'));
         }
     }
 }

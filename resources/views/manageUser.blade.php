@@ -11,21 +11,23 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    @foreach($genre as $genre)
+                    @foreach($user as $user)
                     <ul class="list-group list-group-flush">
                         <div class="container">
                             <div class="row">
                                 <div class="col">
-                                    <li class="list-group-item">{{$genre->genreName}}</li>
+                                <a href="{{url('dashboard/showUser/'.$user->id)}}">
+                                    <li class="list-group-item">{{$user->userName}}</li>
+</a>
                                 </div>
 
                                 <div class="col">
                                     <div class="container">
                                         <li class="list-group-item">
                                             <div class="row">
-                                                <div class="col"><a href="{{url('dashboard/manageGenre/Genre/'.$genre->genreID)}}">Update</a></div>
+                                                <div class="col"><a href="{{url('dashboard/manageUser/User/'.$user->id)}}">Update</a></div>
                                                 <div class="col">
-                                                    <form action="{{url('dashboard/manageGenre/Genre/'.$genre->genreID)}}" method="POST">
+                                                    <form action="{{url('dashboard/manageUser/User/'.$user->id)}}" method="POST">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit">Delete</button>
@@ -47,7 +49,7 @@
                     <div class="flex items-center justify-end mt-4">
                         <a href="{{ route('dashboard.genreCreate') }}">
                             <x-button class="ml-4">
-                                {{ __('Create New Genre') }}
+                                {{ __('Create a New user') }}
                             </x-button>
                         </a>
                     </div>

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Genre;
+use App\Models\Motion;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,6 +15,11 @@ class DashboardController extends Controller
     {
 
         $role_id = DB::table('role_user')->where('user_id', '=', Auth::user()->id)->value('role_id');
+        $user=User::where('id',Auth::user()->id)->get();
+
+        $genre=Genre::all();
+        $motion=Motion::all();
+
 
         // if the user is general user
 
@@ -20,7 +27,7 @@ class DashboardController extends Controller
 
             session(['user_role' => 'user']);
             
-            return view('userDashboard');
+            return view('userDashboard',['genre'=>$genre,'motion'=>$motion]);
         }
 
         // if the user is moderator
@@ -29,7 +36,7 @@ class DashboardController extends Controller
 
             session(['user_role' => 'moderator']);
 
-            return view('moderatorDashboard');
+            return view('moderatorDashboard',['genre'=>$genre,'motion'=>$motion]);
         }
 
         // if the user is admin
@@ -38,7 +45,7 @@ class DashboardController extends Controller
 
             session(['user_role' => 'admin']);
 
-            return view('adminDashboard');
+            return view('adminDashboard',['genre'=>$genre,'motion'=>$motion]);
         }
 
         // otherwise unknown user

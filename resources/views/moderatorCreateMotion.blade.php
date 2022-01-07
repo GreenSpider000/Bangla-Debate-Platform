@@ -13,7 +13,7 @@
 
                     <!-- Motion create form -->
 
-                    <form method="POST" action="{{ route('dashboard.motionCreate') }}">
+                    <form method="POST" action="{{ route('dashboard.moderatorMotionCreate') }}">
 
                         @csrf
 
@@ -40,7 +40,6 @@
 
                             <div class="col-md-6">@error('motionDescription')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror</div>
 
-
                         </div>
 
                         <div class="container">
@@ -54,9 +53,7 @@
                             </div>
                         </div>
 
-                        <!-- start motion pros and cons input area -->
-
-
+                        
                         <div style="margin-bottom:40px;" class="container">
 
                             <div class="row">

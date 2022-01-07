@@ -9,12 +9,11 @@ class Motion extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'motionID',
         'motionName',
         'motionDescription',
         'motionCreateDateTime',
         'motionUploadDateTime',
-    ];
-    protected $guarded = [
-        'motionID',
+        'userName',
     ];
 }

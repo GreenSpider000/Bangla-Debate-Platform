@@ -15,9 +15,9 @@ class Cons extends Model
         'consTitle',
         'consDescription',
         'consNumber',
+        'motionID',
     ];
     protected $guarded = [
-        'motionID',
         'consID',
     ];
 }

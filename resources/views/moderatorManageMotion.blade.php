@@ -2,7 +2,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Genres') }}
+            {{ __('Motions') }}
         </h2>
     </x-slot>
 
@@ -11,43 +11,46 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
 
-                    @foreach($genre as $genre)
-                    <ul class="list-group list-group-flush">
-                        <div class="container">
+                    <!-- Show all the motions here -->
+                    @foreach($motion as $motion)
+
+                    <div class="container">
+                        <ul class="list-group list-group-flush">
                             <div class="row">
                                 <div class="col">
-                                    <li class="list-group-item">{{$genre->genreName}}</li>
+                                    <a href="{{url('dashboard/showMotion/'.$motion->motionID)}}">
+                                        <li class="list-group-item">{{$motion->motionName}}
+                                    </a>
+                                    <P>{{$motion->motionDescription}}</P>
+                                    </li>
                                 </div>
-
-                                <div class="col">
-                                    <div class="container">
-                                        <li class="list-group-item">
-                                            <div class="row">
-                                                <div class="col"><a href="{{url('dashboard/manageGenre/Genre/'.$genre->genreID)}}">Update</a></div>
-                                                <div class="col">
-                                                    <form action="{{url('dashboard/manageGenre/Genre/'.$genre->genreID)}}" method="POST">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <button type="submit">Delete</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </li>
+                                <li class="list-group-item ">
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="{{url('dashboard/moderatorManageMotion/Motion/'.$motion->motionID)}}">Update</a>
+                                        </div>
+                                        <div class="col">
+                                            <form action="{{url('dashboard/moderatorManageMotion/Motion/'.$motion->motionID)}}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit">Delete</button>
+                                            </form>
+                                        </div>
                                     </div>
-                                </div>
+                                </li>
                             </div>
-                        </div>
-                    </ul>
-                    @endforeach
+                        </ul>
+                    </div>
 
+                    @endforeach
 
 
 
                     <!-- Create New Genre Button -->
                     <div class="flex items-center justify-end mt-4">
-                        <a href="{{ route('dashboard.genreCreate') }}">
+                        <a href="{{ route('dashboard.moderatorMotionCreate') }}">
                             <x-button class="ml-4">
-                                {{ __('Create New Genre') }}
+                                {{ __('Create New Motion') }}
                             </x-button>
                         </a>
                     </div>
