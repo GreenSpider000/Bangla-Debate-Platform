@@ -108,7 +108,7 @@ class GenreController extends Controller
 
     public function showMotionsOfTheGenre($genreName){
         $genre=Genre::where('genreName',$genreName)->get();
-        $motion=Motion::all()->take(2);
+        $motion=Motion::all();
         return view('genresMotions',['genre'=>$genre,'motion'=>$motion]);
 
     }

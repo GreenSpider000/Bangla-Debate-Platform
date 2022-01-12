@@ -90,14 +90,6 @@ Route::group(['middleware' => ['auth', 'role:admin']], function () {
 
 
 
-// genre views
-//createGenre.blade.php
-//editGenre.blade.php
-//manageGenre.blade.php
-
-//createMotion.blade.php -
-//editMotion.blade.php -
-//manageMotion.blade.php -
 
 
 require __DIR__ . '/auth.php';
